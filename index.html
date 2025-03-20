@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡単なメモ帳</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>簡単なメモ帳</h1>
+    <textarea id="memo" placeholder="メモをここに書いてください..."></textarea>
+    <br>
+    <button onclick="saveMemo()">メモを保存</button>
+
+    <script>
+        // Cookieからメモを読み込む
+        function loadMemo() {
+            const savedMemo = getCookie("memo");
+            if (savedMemo) {
+                document.getElementById("memo").value = savedMemo;
+            }
+        }
+
+        // メモをCookieに保存
+        function saveMemo() {
+            const memo = document.getElementById("memo").value;
+            setCookie("memo", memo, 365);  // 365日間保存
+            alert("メモを保存しました！");
+        }
+
+        // Cookieの値を取得
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1, c.length);
+                }
+                if (c.indexOf(nameEQ) === 0) {
+                    return c.substring(nameEQ.length, c.length);
+                }
+            }
+            return null;
+        }
+
+        // Cookieに値を設定
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));  // 指定された日数後
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // ページ読み込み時にメモを読み込む
+        window.onload = loadMemo;
+    </script>
+</body>
+</html>
