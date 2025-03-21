@@ -22,12 +22,17 @@ const blockPadding = 10;
 const blockOffsetTop = 30;
 const blockOffsetLeft = 30;
 
-for (let c = 0; c < blockColumnCount; c++) {
-    blocks[c] = [];
-    for (let r = 0; r < blockRowCount; r++) {
-        blocks[c][r] = { x: 0, y: 0, status: 1 };
+// 初期ブロックの生成
+function resetBlocks() {
+    for (let c = 0; c < blockColumnCount; c++) {
+        blocks[c] = [];
+        for (let r = 0; r < blockRowCount; r++) {
+            blocks[c][r] = { x: 0, y: 0, status: 1 };
+        }
     }
 }
+
+resetBlocks(); // 初期ブロックの配置
 
 function drawBall() {
     breakoutCtx.beginPath();
@@ -76,9 +81,10 @@ function moveBall() {
         if (ballX > paddleX && ballX < paddleX + paddleWidth) {
             ballDY = -ballDY;
         } else {
-            // ゲームオーバー
+            // ボールが画面下に落ちた場合、ブロックをリセット
             ballX = breakoutCanvas.width / 2;
             ballY = breakoutCanvas.height - 30;
+            resetBlocks(); // ブロックをリセット
         }
     }
 
@@ -88,7 +94,7 @@ function moveBall() {
             if (b.status == 1) {
                 if (ballX > b.x && ballX < b.x + blockWidth && ballY > b.y && ballY < b.y + blockHeight) {
                     ballDY = -ballDY;
-                    b.status = 0;
+                    b.status = 0; // ブロックが壊れる
                 }
             }
         }
