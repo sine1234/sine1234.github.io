@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+#gamesContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+#tetrisContainer, #breakoutContainer {
+    width: 45%;
+    padding: 10px;
+}
+
+canvas {
+    border: 2px solid #000;
+    background-color: #e0e0e0;
+}
+
+h2 {
+    margin-bottom: 10px;
+}

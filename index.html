@@ -3,83 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BorderBreaker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #000000;
-            border-radius: 5px;
-            color: rgb(0 255 0);
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #af4c4c;
-            color: rgb(0, 0, 0);
-            border: none;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #af4c4c;
-        }
-    </style>
+    <title>テトリスとブロック崩し</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>ハッキングツール【BORDERBREAKER】</h1>
-    <br>
-    <button onclick="saveMemo()">送信する</button>
+    <h1>テトリスとブロック崩しゲーム</h1>
 
-    <script>
-        // Cookieからメモを読み込む
-        function loadMemo() {
-            const savedMemo = getCookie("memo");
-            if (savedMemo) {
-                document.getElementById("memo").value = savedMemo;
-            }
-        }
+    <div id="gamesContainer">
+        <div id="tetrisContainer">
+            <h2>テトリス</h2>
+            <canvas id="tetrisCanvas"></canvas>
+        </div>
 
-        // メモをCookieに保存
-        function saveMemo() {
-            const memo = document.getElementById("memo").value;
-            setCookie("memo", memo, 365);  // 365日間保存
-            alert("メモを保存しました！");
-        }
+        <div id="breakoutContainer">
+            <h2>ブロック崩し</h2>
+            <canvas id="breakoutCanvas"></canvas>
+        </div>
+    </div>
 
-        // Cookieの値を取得
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1, c.length);
-                }
-                if (c.indexOf(nameEQ) === 0) {
-                    return c.substring(nameEQ.length, c.length);
-                }
-            }
-            return null;
-        }
-
-        // Cookieに値を設定
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));  // 指定された日数後
-            const expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/";
-        }
-
-        // ページ読み込み時にメモを読み込む
-        window.onload = loadMemo;
-    </script>
+    <script src="tetris.js"></script>
+    <script src="breakout.js"></script>
 </body>
 </html>
+
