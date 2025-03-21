@@ -32,7 +32,8 @@ function resetBlocks() {
     }
 }
 
-resetBlocks(); // 初期ブロックの配置
+// 初期のブロック配置
+resetBlocks();
 
 function drawBall() {
     breakoutCtx.beginPath();
@@ -88,6 +89,7 @@ function moveBall() {
         }
     }
 
+    // ボールとブロックの衝突処理
     for (let c = 0; c < blockColumnCount; c++) {
         for (let r = 0; r < blockRowCount; r++) {
             let b = blocks[c][r];
@@ -103,10 +105,10 @@ function moveBall() {
 
 function draw() {
     breakoutCtx.clearRect(0, 0, breakoutCanvas.width, breakoutCanvas.height);
-    drawBlocks();
-    drawBall();
-    drawPaddle();
-    moveBall();
+    drawBlocks();  // ブロックを描画
+    drawBall();    // ボールを描画
+    drawPaddle();  // パドルを描画
+    moveBall();    // ボールの移動
 }
 
 document.addEventListener("mousemove", function (event) {
@@ -116,4 +118,5 @@ document.addEventListener("mousemove", function (event) {
     }
 });
 
+// ゲームの描画ループ
 setInterval(draw, 10);
